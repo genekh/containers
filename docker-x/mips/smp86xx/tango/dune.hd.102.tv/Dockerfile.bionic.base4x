@@ -7,7 +7,7 @@ RUN apt clean all -yqq && \
     apt update -yqq && \
     apt upgrade -yqq && \
     apt install --install-recommends -yqq \
-        apt-utils aptly \
+        apt-utils aptly bash \
         apt-transport-https && \
     apt install --install-recommends -yqq \
         software-properties-common \
@@ -23,6 +23,7 @@ RUN apt clean all -yqq && \
         ubuntu-restricted-addons \
         ubuntu-restricted-extras && \
     apt autoremove --purge -yqq && \
-    rm -rf /var/cache/apt/archives && \
+    rm -rf /var/cache/apt/archives/* && \
+    rm -rf /var/lib/apt/lists/* && \
     apt clean all -yqq && \
     apt update -yqq
