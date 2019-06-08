@@ -1,0 +1,61 @@
+FROM ubuntu:bionic
+
+ENV BASE_DIR='/opt'
+ENV SMP86XX_TOOLCHAIN_PATH=${BASE_DIR}'/mips-4.3'
+ENV BIN_PATH=${SMP86XX_TOOLCHAIN_PATH}'/bin'
+ENV PATH=${BIN_PATH}:${PATH}
+
+ENV COMPILKIND='codesourcery hardfloat glibc release'
+
+#  FROM http://scottjohnson.org/wiki/Dune/Hacking
+#   ./configure --prefix=$HOME/dune-install --build=i686-pc-linux-gnu --host=mips-linux-gnu CFLAGS="-EL -march=74kf2_1 -mdspr2"
+#   make install
+
+#  FROM http://forum.wdlxtv.com/viewtopic.php?f=43&t=8814
+#  ENV BUILDROOT=/opt/buildroot
+#  ENV LDFLAGS=" -L$BUILDROOT/lib -L$BUILDROOT/usr/lib -liconv"
+#  ENV CFLAGS="-Os -I$BUILDROOT/include -I$BUILDROOT/usr/include"
+#  ENV CPPFLAGS="-Os -I$BUILDROOT/include -I$BUILDROOT/usr/include"
+#  ENV CC="$BINPATH/mipsel-linux-gcc"
+#  ENV CPP="$BINPATH/mipsel-linux-cpp"
+#  ENV CXX="$BINPATH/mipsel-linux-g++"
+#  ENV LD=$BINPATH/mipsel-linux-ld
+#  ENV RANLIB=$BINPATH/mipsel-linux-ranlib
+#  ENV PKG_CONFIG_PATH="$BUILDROOT/lib/pkgconfig:$BUILDROOT/usr/lib/pkgconfig"
+#  ENV LD_RUN_PATH=$BUILDROOT/lib:$BUILDROOT/usr/lib
+
+
+ENV GIT_BUILDROOT='https://github.com/buildroot/buildroot.git'
+ENV GIT_LINUX_TANGOX='https://github.com/mansr/linux-tangox.git' 
+#  ENV LNK_CS_TOOLCHAIN_43='http://www.codesourcery.com/sgpp/lite/mips/portal/package4432/public/mips-linux-gnu/mips-4.3-154-mips-linux-gnu-i686-pc-linux-gnu.tar.bz2'
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt clean all -yqq && \
+    dpkg --add-architecture i386 && \
+    apt update -yqq && \
+    apt upgrade -yqq && \
+    apt install --install-recommends -yqq \
+        apt-utils aptly \
+        apt-transport-https && \
+    apt install --install-recommends -yqq \
+        software-properties-common \
+        python3-software-properties \
+        nano git bzr curl wget rpm tar \
+        dpkg-dev zip unzip gzip bzip2 \
+        xzdec unrar p7zip-full p7zip-rar \
+        xz-utils zlibc make cmake \
+        automake autoconf libtool \
+        pkg-config sbuild ninja-build \
+        meson koji-client dialog \     
+        console-cyrillic libudev-dev \
+        ubuntu-restricted-addons \
+        ubuntu-restricted-extras && \
+    apt autoremove --purge -yqq && \
+    rm -rf /var/cache/apt/archives && \
+    apt clean all -yqq && \
+    apt update -yqq && \
+    cd ${BASE_DIR} && \
+    git clone --recursive ${GIT_BUILDROOT} && \
+    git clone --recursive ${GIT_LINUX_TANGOX}    
+    
