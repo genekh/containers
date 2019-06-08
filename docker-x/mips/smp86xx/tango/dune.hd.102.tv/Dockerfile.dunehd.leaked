@@ -37,4 +37,4 @@ RUN echo ${WORKDIR} && echo ${GIT_BUILD_SCRIPT} && \
 RUN echo "$(pwd)" && echo ${WORKDIR} && echo ${PATH} && echo "$(env)"   
 RUN chmod +x "${WORKDIR}/build.sh" &&  cd ${WORKDIR}
 RUN "${WORKDIR}/build.sh" ${CHIP_VERSION} 
-RIN unset PATH
+RUN unset PATH
