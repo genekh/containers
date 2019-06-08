@@ -32,8 +32,9 @@ ENV SMP86XX_TOOLCHAIN_PATH=${SMP86XX_TOOLCHAIN_PATH}
 ENV PATH=${PATH}
 ENV COMPILKIND=${COMPILKIND}
 ENV TERM xterm
-RUN cd ${WORKDIR} && echo ${WORKDIR} && \ 
-    echo $(pwd) && echo ${GIT_BUILD_SCRIPT} && \ 
-    wget -O './build.sh' ${GIT_BUILD_SCRIPT}
-RUN echo ${PATH} && echo $(env) && \
-    chmod +x ./build.sh && ./build.sh ${CHIP_VERSION} && unset PATH
+RUN echo ${WORKDIR} && echo ${GIT_BUILD_SCRIPT} && \ 
+    wget -O "${WORKDIR}/build.sh" ${GIT_BUILD_SCRIPT}
+RUN echo "$(pwd)" && echo ${WORKDIR} && echo ${PATH} && echo "$(env)"   
+RUN chmod +x "${WORKDIR}/build.sh" &&  cd ${WORKDIR}
+RUN "${WORKDIR}/build.sh" ${CHIP_VERSION} 
+RIN unset PATH
