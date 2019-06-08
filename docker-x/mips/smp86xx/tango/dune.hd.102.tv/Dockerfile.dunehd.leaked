@@ -1,8 +1,9 @@
 FROM genekh/containers:docker-bionic-base4x-dune102tv
 
 # Sigma designs Dune HD TV 102 - argument to build script
-LABEL chip.version=8674
-LABEL container.tag docker.cross.mips.smp8674.dunehd.tv102.leaked
+ARG CHIP_VERSION 8674
+LABEL platform.chip.version=${CHIP_VERSION}
+LABEL container.tag docker.cross.mips.smp${CHIP_VERSION}.dunehd.tv102.leaked
 
 ARG WORKDIR='/opt'
 # Next 2 are used by the build script
@@ -27,4 +28,4 @@ LABEL build.params.major.b_target release
 ARG GIT_BUILD_SCRIPT='https://raw.githubusercontent.com/genekh/containers/master/docker-x/mips/smp86xx/tango/dune.hd.102.tv/build.orig.dune.ftp.mischa.sh'
 
 RUN cd ${WORKDIR} && wget -O './build.sh' ${GIT_BUILD_SCRIPT} && \
-    chmod +x ./build.sh && ./build.sh ${chip.version}
+    chmod +x ./build.sh && ./build.sh ${CHIP_VERSION}
