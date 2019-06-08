@@ -1,19 +1,18 @@
 FROM genekh/containers:docker-bionic-base4x-dune102tv
 
-ARG CHIP_VERSION=8674
-ARG BASEDIR='/opt'
-ARG SAVEDPATH=${PATH}
+ENV TERM=xterm
+ENV SHELL=/bin/bash
+ENV CHIP_VERSION=8674
+ENV WORKDIR='/opt'
 
 LABEL platform.chip.version=${CHIP_VERSION}
 LABEL container.tag docker.cross.mips.smp${CHIP_VERSION}.dunehd.tv102.leaked
 
-ENV WORKDIR=${BASEDIR}
 ENV SMP86XX_TOOLCHAIN_PATH=${WORKDIR}'/mips-4.3'
-ENV BIN_PATH=${SMP86XX_TOOLCHAIN_PATH}'/bin'
-ARG PATH=${BIN_PATH}:${PATH} 
+ENV TC_BIN=${SMP86XX_TOOLCHAIN_PATH}'/bin'
 
 # Next arg is required by the script but not given so sourced externally
-ARG COMPILKIND='codesourcery hardfloat glibc release'
+ENV COMPILKIND='codesourcery hardfloat glibc release'
 LABEL build.params.major.toolchain codesourcery.dunehd_selection
 LABEL build.params.major.floatype hardfloat
 LABEL build.params.major.libctype glibc
@@ -26,17 +25,11 @@ LABEL build.params.major.b_target release
 # ARG ENDIANS='CFLAGS="-EL' ' suggested by Dune Hacking matches official
 # ARG ECL_FLG='-mdspr2' ' suggested by Dune Hacking
 
-ARG GIT_BUILD_SCRIPT='https://raw.githubusercontent.com/genekh/containers/master/docker-x/mips/smp86xx/tango/dune.hd.102.tv/build.orig.dune.ftp.mischa.sh'
-# One of many Docker's stupid things - not even trying to understand 
-ENV WORKDIR=${WORKDIR}
-ENV CHIP_VERSION=${CHIP_VERSION}
-ENV SMP86XX_TOOLCHAIN_PATH=${SMP86XX_TOOLCHAIN_PATH}
-ENV PATH=${PATH}
-ENV COMPILKIND=${COMPILKIND}
-ENV TERM xterm
+ENV GIT_BUILD_SCRIPT='https://raw.githubusercontent.com/genekh/containers/master/docker-x/mips/smp86xx/tango/dune.hd.102.tv/build.orig.dune.ftp.mischa.sh'
+
 RUN echo ${WORKDIR} && echo ${GIT_BUILD_SCRIPT} && \ 
-    wget -O "${WORKDIR}/build.sh" ${GIT_BUILD_SCRIPT}
-RUN echo "$(pwd)" && echo ${WORKDIR} && echo ${PATH} && echo "$(env)"   
-RUN chmod +x "${WORKDIR}/build.sh" &&  cd ${WORKDIR}
-RUN "${WORKDIR}/build.sh" ${CHIP_VERSION} 
-RUN unset PATH
+    wget -O "${WORKDIR}/build.sh" ${GIT_BUILD_SCRIPT} && \ 
+    chmod +x "${WORKDIR}/build.sh" &&  cd ${WORKDIR} && \
+    bash -c ". <( env | sed s/(PATH=)/$1${TC_BIN}\:/); " \ 
+            "${WORKDIR}/build.sh ${CHIP_VERSION}"
+
