@@ -32,5 +32,5 @@ RUN echo ${WORKDIR} && echo ${GIT_BUILD_SCRIPT} && \
     chmod +x "${WORKDIR}/build.sh" &&  cd ${WORKDIR} && \
     bash -c ". <( env | awk -F'^PATH=' -v bp=${TC_BIN} " \ 
             "'{print $1 "PATH=" bp $2}'); " \ 
-            "${WORKDIR}/build.sh ${CHIP_VERSION}"
+            "${WORKDIR}/build.sh ${CHIP_VERSION};"
 
