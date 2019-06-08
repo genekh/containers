@@ -59,3 +59,7 @@ RUN apt clean all -yqq && \
     git clone --recursive ${GIT_BUILDROOT} && \
     git clone --recursive ${GIT_LINUX_TANGOX}    
     
+ COPY build.orig.dune.ftp.mischa.sh ${BASE_DIR}/official.sh
+ 
+ RUN chmod +x official.sh && ${BASE_DIR}/official.sh 8674
+ 
