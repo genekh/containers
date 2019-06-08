@@ -1,15 +1,23 @@
 FROM genekh/containers:docker-bionic-base4x-dune102tv
 
-ARG PLATFORM=8674 ' Sigma designs Dune HD TV 102 - argument to build script
+# Sigma designs Dune HD TV 102 - argument to build script
+LABEL chip.version=8674
+LABEL container.tag docker.cross.mips.smp8674.dunehd.tv102.leaked
 
-ARG BASE_DIR='/opt' ' arbitrarily chosen path
-ARG SMP86XX_TOOLCHAIN_PATH=${BASE_DIR}'/mips-4.3' ' used by the build script
-ARG BIN_PATH=${SMP86XX_TOOLCHAIN_PATH}'/bin' ' here for testing purposes as suggested by others
-ARG PATH=${BIN_PATH}:${PATH} ' used by the build script 
+ARG WORKDIR='/opt'
+# Next 2 are used by the build script
+ARG SMP86XX_TOOLCHAIN_PATH=${BASE_DIR}'/mips-4.3'
+ARG PATH=${BIN_PATH}:${PATH} 
+ARG BIN_PATH=${SMP86XX_TOOLCHAIN_PATH}'/bin'
 
-ARG COMPILKIND='codesourcery hardfloat glibc release' ' is required by the build script but not given - sourced externally
+# Next arg is required by the script but not given so sourced externally
+ARG COMPILKIND='codesourcery hardfloat glibc release'
+LABEL build.params.major.toolchain codesourcery.dunehd_selection
+LABEL build.params.major.floatype hardfloat
+LABEL build.params.major.libctype glibc
+LABEL build.params.major.b_target release
 
-# ARG PREFIX='--prefix='"$BASED_DIR/LEAKED_BUILD" ' chosen for convenience
+# ARG PREFIX='--prefix='"${WORKDIR}/LEAKED_BUILD" ' chosen for convenience
 # ARG MARCH='-march=74kf2_1' ' suggested by Dune HAcking
 # ARG HOST_SYS='--host=mips-linux-gnu' ' suggested by Dune Hacking 
 # ARG BLDE_SYS='--build=i686-pc-linux-gnu' ' suggested by Dune Hacking - matches official
@@ -18,5 +26,5 @@ ARG COMPILKIND='codesourcery hardfloat glibc release' ' is required by the build
 
 ARG GIT_BUILD_SCRIPT='https://raw.githubusercontent.com/genekh/containers/master/docker-x/mips/smp86xx/tango/dune.hd.102.tv/build.orig.dune.ftp.mischa.sh'
 
-RUN cd ${BASE_DIR} && wget -O './build.sh' ${GIT_BUILD_SCRIPT} && \
-    chmod +x ./build.sh && ./build.sh ${PLATFORM}
+RUN cd ${WORKDIR} && wget -O './build.sh' ${GIT_BUILD_SCRIPT} && \
+    chmod +x ./build.sh && ./build.sh ${chip.version}
