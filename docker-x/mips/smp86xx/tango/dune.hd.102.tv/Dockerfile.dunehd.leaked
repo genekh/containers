@@ -1,4 +1,4 @@
-FROM genekh:baseimage
+FROM genekh/containers:docker-bionic-base4x-dune102tv
 
 ARG PLATFORM=8674 # Sigma designs Dune HD TV 102 - argument to build script
 
