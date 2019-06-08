@@ -26,8 +26,12 @@ LABEL build.params.major.b_target release
 # ARG ECL_FLG='-mdspr2' ' suggested by Dune Hacking
 
 ARG GIT_BUILD_SCRIPT='https://raw.githubusercontent.com/genekh/containers/master/docker-x/mips/smp86xx/tango/dune.hd.102.tv/build.orig.dune.ftp.mischa.sh'
-
+# One of many Docker's stupid things - not even trying to understand 
+ENV CHIP_VERSION=${CHIP_VERSION}
+ENV SMP86XX_TOOLCHAIN_PATH=${SMP86XX_TOOLCHAIN_PATH}
+ENV PATH=${PATH}
+ENV COMPILKIND=${COMPILKIND}
 ENV TERM xterm
 RUN cd ${WORKDIR} && wget -O './build.sh' ${GIT_BUILD_SCRIPT} && \
     echo ${PATH} && echo $(env) && echo ${WORKDIR} && $(ls ${WORKDIR}) && \
-    chmod +x ./build.sh && ./build.sh ${CHIP_VERSION}
+    chmod +x ./build.sh && ./build.sh ${CHIP_VERSION} && unset PATH
