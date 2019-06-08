@@ -1,13 +1,15 @@
 FROM genekh/containers:docker-bionic-base4x-dune102tv
 
 ARG CHIP_VERSION=8674
+ARG BASEDIR='/opt'
+ARG SAVEDPATH=${PATH}
 
 LABEL platform.chip.version=${CHIP_VERSION}
 LABEL container.tag docker.cross.mips.smp${CHIP_VERSION}.dunehd.tv102.leaked
 
-ARG WORKDIR='/opt'
-ARG SMP86XX_TOOLCHAIN_PATH=${WORKDIR}'/mips-4.3'
-ARG BIN_PATH=${SMP86XX_TOOLCHAIN_PATH}'/bin'
+ENV WORKDIR=${BASEDIR}
+ENV SMP86XX_TOOLCHAIN_PATH=${WORKDIR}'/mips-4.3'
+ENV BIN_PATH=${SMP86XX_TOOLCHAIN_PATH}'/bin'
 ARG PATH=${BIN_PATH}:${PATH} 
 
 # Next arg is required by the script but not given so sourced externally
