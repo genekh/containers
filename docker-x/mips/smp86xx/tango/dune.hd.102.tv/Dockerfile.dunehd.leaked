@@ -1,7 +1,9 @@
 FROM genekh/containers:docker-bionic-base4x-dune102tv
 
 # Sigma designs Dune HD TV 102 - argument to build script
+
 ARG CHIP_VERSION=8674
+
 LABEL platform.chip.version=${CHIP_VERSION}
 LABEL container.tag docker.cross.mips.smp${CHIP_VERSION}.dunehd.tv102.leaked
 
