@@ -6,10 +6,9 @@ LABEL platform.chip.version=${CHIP_VERSION}
 LABEL container.tag docker.cross.mips.smp${CHIP_VERSION}.dunehd.tv102.leaked
 
 ARG WORKDIR='/opt'
-# Next 2 are used by the build script
 ARG SMP86XX_TOOLCHAIN_PATH=${WORKDIR}'/mips-4.3'
-ARG PATH=${BIN_PATH}:${PATH} 
 ARG BIN_PATH=${SMP86XX_TOOLCHAIN_PATH}'/bin'
+ARG PATH=${BIN_PATH}:${PATH} 
 
 # Next arg is required by the script but not given so sourced externally
 ARG COMPILKIND='codesourcery hardfloat glibc release'
@@ -27,6 +26,7 @@ LABEL build.params.major.b_target release
 
 ARG GIT_BUILD_SCRIPT='https://raw.githubusercontent.com/genekh/containers/master/docker-x/mips/smp86xx/tango/dune.hd.102.tv/build.orig.dune.ftp.mischa.sh'
 # One of many Docker's stupid things - not even trying to understand 
+ENV WORKDIR=${WORKDIR}
 ENV CHIP_VERSION=${CHIP_VERSION}
 ENV SMP86XX_TOOLCHAIN_PATH=${SMP86XX_TOOLCHAIN_PATH}
 ENV PATH=${PATH}
