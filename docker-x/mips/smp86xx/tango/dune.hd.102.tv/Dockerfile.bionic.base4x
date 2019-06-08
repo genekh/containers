@@ -1,0 +1,28 @@
+FROM ubuntu:bionic
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt clean all -yqq && \
+    dpkg --add-architecture i386 && \
+    apt update -yqq && \
+    apt upgrade -yqq && \
+    apt install --install-recommends -yqq \
+        apt-utils aptly \
+        apt-transport-https && \
+    apt install --install-recommends -yqq \
+        software-properties-common \
+        python3-software-properties \
+        nano git bzr curl wget rpm tar \
+        dpkg-dev zip unzip gzip bzip2 \
+        xzdec unrar p7zip-full p7zip-rar \
+        xz-utils zlibc make cmake \
+        automake autoconf libtool \
+        pkg-config sbuild ninja-build \
+        meson koji-client dialog \     
+        console-cyrillic libudev-dev \
+        ubuntu-restricted-addons \
+        ubuntu-restricted-extras && \
+    apt autoremove --purge -yqq && \
+    rm -rf /var/cache/apt/archives && \
+    apt clean all -yqq && \
+    apt update -yqq
