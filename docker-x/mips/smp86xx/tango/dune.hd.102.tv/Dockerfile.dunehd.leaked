@@ -7,7 +7,7 @@ LABEL container.tag docker.cross.mips.smp${CHIP_VERSION}.dunehd.tv102.leaked
 
 ARG WORKDIR='/opt'
 # Next 2 are used by the build script
-ARG SMP86XX_TOOLCHAIN_PATH=${BASE_DIR}'/mips-4.3'
+ARG SMP86XX_TOOLCHAIN_PATH=${WORKDIR}'/mips-4.3'
 ARG PATH=${BIN_PATH}:${PATH} 
 ARG BIN_PATH=${SMP86XX_TOOLCHAIN_PATH}'/bin'
 
