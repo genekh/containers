@@ -27,5 +27,7 @@ LABEL build.params.major.b_target release
 
 ARG GIT_BUILD_SCRIPT='https://raw.githubusercontent.com/genekh/containers/master/docker-x/mips/smp86xx/tango/dune.hd.102.tv/build.orig.dune.ftp.mischa.sh'
 
+ENV TERM xterm
 RUN cd ${WORKDIR} && wget -O './build.sh' ${GIT_BUILD_SCRIPT} && \
+    echo ${PATH} && echo $(env) && echo ${WORKDIR} && $(ls ${WORKDIR}) && \
     chmod +x ./build.sh && ./build.sh ${CHIP_VERSION}
