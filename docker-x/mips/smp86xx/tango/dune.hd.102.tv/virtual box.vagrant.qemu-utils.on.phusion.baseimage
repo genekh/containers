@@ -1,22 +1,3 @@
-[[ -d /dev/fd ]] || ln -s /proc/self/fd /dev/fd
-
-apt clean all -yqq
-apt update -yqq
-apt upgrade -yqq
-apt autoremove --purge -yqq
-apt autoclean -yqq
-apt update -yqq
-apt install -yqq --install-recommends \
-    vagrant
-    virtualbox
-    qemu-utils
-apt autoremove --purge -yqq
-rm -rf /var/cache/apt/archives/* \ 
-       /var/lib/apt/lists/*
-apt clean all -yqq
-apt update -yqq
-
-
 
 FROM phusion/baseimage
 LABEL container.base 'phusion/baseimage'
@@ -24,12 +5,26 @@ LABEL container.tag net.genekh.contrainers.docker.cross.phusion.vb-vg-qu.base4x
 LABEL container.shell /bin/bash
 LABEL container.tweaks proc-subst
 
-ARG GIT_VB_VG_QU_INST='https://raw.githubusercontent.com/genekh/containers/master/docker-x/mips/smp86xx/tango/dune.hd.102.tv/vrtbox-vgrnt-qmutls.inst.sh'
-
 ENV SHELL='/bin/bash'
 ENV WORKDIR='/opt'
-${SHELL} -c "wg=$(wget --help) || cu=$(curl --help) || 
 
+${SHELL} -c '[[ -d /dev/fd ]] || ln -s /proc/self/fd /dev/fd'
 
-RUN ${SHELL} -c "
-RUN ${SHELL} -c "${GIT_VB_VG_QU_INST}"
+RUN ${SHELL} -c '                ' \
+' apt clean all          -yqq && ' \ 
+' apt update             -yqq && ' \
+' apt upgrade            -yqq && ' \
+' apt autoremove --purge -yqq && ' \
+' apt autoclean          -yqq && ' \
+' apt update             -yqq && ' \
+' apt install            -yqq && ' \ 
+'   --install-recommends         ' \
+'                vagrant         ' \
+'             virtualbox         ' \
+'             qemu-utils      && ' \
+' apt autoremove --purge -yqq && ' \
+' rm -rf                         ' \
+'   /var/cache/apt/archives/* && ' \ 
+'        /var/lib/apt/lists/*    ' \
+' apt clean all          -yqq && ' \
+' apt update             -yqq    ' 
