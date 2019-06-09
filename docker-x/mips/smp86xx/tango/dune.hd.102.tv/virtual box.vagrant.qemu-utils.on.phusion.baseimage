@@ -1,16 +1,20 @@
 
 FROM phusion/baseimage
+
 LABEL container.base 'phusion/baseimage'
 LABEL container.tag net.genekh.contrainers.docker.cross.phusion.vb-vg-qu.base4x
 LABEL container.shell /bin/bash
 LABEL container.tweaks proc-subst
 
 ENV SHELL='/bin/bash'
-ENV WORKDIR='/opt'
 
 ${SHELL} -c '[[ -d /dev/fd ]] || ln -s /proc/self/fd /dev/fd'
 
 RUN ${SHELL} -c '                ' \
+' if [[ ! -d /dev/fd ]]; then \n ' \
+'    ln -s /proc/self/fd         ' \
+'                /dev/fd      \n ' \
+' fi;                         \n ' \
 ' apt clean all          -yqq && ' \ 
 ' apt update             -yqq && ' \
 ' apt upgrade            -yqq && ' \
