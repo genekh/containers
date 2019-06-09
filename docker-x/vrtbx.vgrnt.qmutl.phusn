@@ -1,7 +1,7 @@
 FROM phusion/baseimage
 
 LABEL container.base 'phusion/baseimage'
-LABEL container.tag net.genekh.contrainers.docker.cross.phusion.vb-vg-qu.base4x
+LABEL container.tag net.genekh.contrainers.docker.cross.vrtbx-vgrnt-qmutl-phusn-base
 LABEL container.shell /bin/bash
 LABEL container.tweaks proc-subst
 
