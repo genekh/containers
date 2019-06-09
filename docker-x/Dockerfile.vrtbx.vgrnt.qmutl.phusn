@@ -28,6 +28,8 @@ RUN ${SHELL} -c '                ' \
 '   /var/cache/apt/archives/* && ' \ 
 '        /var/lib/apt/lists/*    ' \
 ' apt clean all          -yqq && ' \
-' apt update             -yqq    ' 
+' apt update             -yqq    ' \
+' apt list --installled >        ' \
+'            /root/pkglist       ' 
 
 CMD ${SHELL}
