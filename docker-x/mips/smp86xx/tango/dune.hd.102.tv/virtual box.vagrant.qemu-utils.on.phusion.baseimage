@@ -8,8 +8,6 @@ LABEL container.tweaks proc-subst
 
 ENV SHELL='/bin/bash'
 
-${SHELL} -c '[[ -d /dev/fd ]] || ln -s /proc/self/fd /dev/fd'
-
 RUN ${SHELL} -c '                ' \
 ' if [[ ! -d /dev/fd ]]; then \n ' \
 '    ln -s /proc/self/fd         ' \
