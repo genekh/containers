@@ -107,5 +107,5 @@ RUN apt -y update && \
 	zstd && \
     rm -rf /var/lib/apt/lists/* \
            /var/cache/apt/archives/*
-RUN apt -y install google-android-ndk-installer && \
+RUN apt -y install 'google-android-ndk-installer' && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
