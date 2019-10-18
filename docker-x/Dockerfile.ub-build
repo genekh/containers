@@ -9,9 +9,7 @@ RUN apt -y update && \
     apt -y clean all && \
     apt -y autoclean  && \
     apt -y update && \
-    apt -y install \
-       --reinstall \
-         --install-recommends \
+    apt -y install --reinstall --install-recommends \
 	abootimg \
 	adb \
 	android-libsparse-dev \
@@ -69,7 +67,7 @@ RUN apt -y update && \
 	multipath-tools \
 	multipath-tools-boot \
 	nano \
-  ncdu \
+        ncdu \
 	net-tools \
 	network-manager \
 	ninja-build \
@@ -77,7 +75,7 @@ RUN apt -y update && \
 	openssh-server \
 	p7zip-full \
 	pkg-config \
-  pv \
+        pv \
 	python-dev \
 	python-serial \
 	python3-software-properties \
@@ -103,5 +101,7 @@ RUN apt -y update && \
 	zip \
 	zlib1g-dev \
 	zstd && \
-  rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
-  
+    rm -rf /var/lib/apt/lists/* \
+           /var/cache/apt/archives/*
+RUN apt -y install google-android-ndk-installer && \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
