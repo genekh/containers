@@ -1,0 +1,111 @@
+FROM ubuntu:bionic
+LABEL container.base 'ubuntu:bionic'
+LABEL container.tag net.genekh.contrainers.docker.cross.ub-build
+LABEL container.shell /bin/bash
+LABEL container.tweaks google-ndk,clear-apt-cache
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt -y update && \
+    apt -y autoremove --purge && \
+    apt -y clean all && \
+    apt -y autoclean && \
+    apt -y upgrade && \
+    apt -y autoremove --purge && \
+    apt -y clean all && \
+    apt -y autoclean  && \
+    apt -y update && \
+    apt -y install --reinstall --install-recommends \
+	abootimg \
+	adb \
+	android-libsparse-dev \
+	android-sdk-libsparse-utils \
+	apt-utils \
+	audacity \
+	autoconf \
+	autoconf-archive \
+	automake \
+	autopoint \
+	autotools-dev \
+	binutils-multiarch-dev \
+	bleachbit \
+	build-essential \
+	bzip2 \
+	cifs-utils \
+	console-cyrillic \
+	curl \
+	fastboot \
+	ffmpeg \
+	git \
+	git-buildpackage-rpm \
+	grub2 \
+	gzip \
+	handbrake \
+	handbrake-cli \
+	holes \
+	img2simg \
+	koji-client \
+	libarchive-dev \
+	libboost-dev \
+	libiconv-hook-dev \
+	libkmod-dev \
+	liblz4-dev \
+	liblzma-dev \
+	libmediainfo-dev \
+	libperl-dev \
+	libreadline-dev \
+	librpm-dev \
+	libsoxr-dev \
+	libtool \
+	libudev-dev \
+	libusb-dev \
+	libvirt-dev \
+	libwinpr-dev \
+	libwinpr2-dev \
+	libxml2-dev \
+	libzstd-dev \
+	livecd-rootfs \
+	mc \
+	meson \
+	mkbootimg \
+	mkvtoolnix \
+	mkvtoolnix-gui \
+	multipath-tools \
+	multipath-tools-boot \
+	nano \
+        ncdu \
+	net-tools \
+	network-manager \
+	ninja-build \
+	ntfs-3g-dev \
+	openssh-server \
+	p7zip-full \
+	pkg-config \
+        pv \
+	python-dev \
+	python-serial \
+	python3-software-properties \
+	qemu-utils \
+	qt5-default \
+	qt5-qmake \
+	sbuild \
+	shtool \
+	simg2img \
+	skales \
+	software-properties-common \
+	sox \
+	sshfs \
+	subversion \
+	tar \
+	tar-split \
+	unzip \
+	wget \
+	winpr-utils \
+	xauth \
+	xfonts-cyrillic \
+	yasm \
+	zip \
+	zlib1g-dev \
+	zstd && \
+    rm -rf /var/lib/apt/lists/* \
+           /var/cache/apt/archives/*
+RUN apt -y install 'google-android-ndk-installer' && \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
