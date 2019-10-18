@@ -1,17 +1,39 @@
 FROM ubuntu:bionic
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt -y update && \
-    apt -y autoremove --purge && \
-    apt -y clean all && \
-    apt -y autoclean && \
-    apt -y upgrade && \
-    apt -y autoremove --purge && \
-    apt -y clean all && \
-    apt -y autoclean  && \
-    apt -y update && \
-    apt -y install \
-       --reinstall \
-         --install-recommends \
+
+ARG NDK_INSTALLER='google-android-ndk-installer'
+ARG CLEAR_CACHE='rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*'
+ARG DEBIAN_FRONTEND=noninteractive
+
+LABEL container.base ubuntu:bionic
+LABEL container.tag net.genekh.contrainers.docker.cross.ub-build
+LABEL container.shell /bin/bash
+LABEL container.tweaks ndk-installer,clear-cache
+
+RUN apt-get -y update &&                       \
+    apt-get -y install                         \
+                       --fix-broken            \
+                       --reinstall             \
+                       --no-install-recommends \
+               apt-transport-https             \
+               apt-utils                       \
+               software-properties-common      \
+               python3-software-properties     \
+               nano curl wget p7zip-full zstd
+
+RUN apt-get  -y autoremove --purge && \
+    apt-get  -y autoclean          && \
+    apt-get  -y update             && \
+    apt-get  -y upgrade		   && \
+    apt-get  -y autoclean          && \
+    ${CLEAR_CACHE}
+    
+RUN apt -y update && apt -y install "${NDK_INSTALLER}" && ${CLEAR_CACHE}
+    
+RUN apt -y update                  && \
+    apt -y install                    \
+              --fix-broken            \
+              --reinstall             \
+              --no-install-recommends \
 	abootimg \
 	adb \
 	android-libsparse-dev \
@@ -103,9 +125,5 @@ RUN apt -y update && \
 	zip \
 	zlib1g-dev \
 	zstd && \
-    rm -rf /var/lib/apt/lists/* \
-           /var/cache/apt/archives/*
-ENV GNDKB='google-android-ndk-installer'
-RUN apt -y install "${GNDKB}" && \
-    rm -rf /var/lib/apt/lists/* \
-           /var/cache/apt/archives/*
+	${CLEAR_CACHE}
+	
