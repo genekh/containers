@@ -67,7 +67,7 @@ RUN apt -y update && \
 	multipath-tools \
 	multipath-tools-boot \
 	nano \
-    ncdu \
+        ncdu \
 	net-tools \
 	network-manager \
 	ninja-build \
@@ -75,7 +75,7 @@ RUN apt -y update && \
 	openssh-server \
 	p7zip-full \
 	pkg-config \
-    pv \
+        pv \
 	python-dev \
 	python-serial \
 	python3-software-properties \
