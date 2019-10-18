@@ -9,7 +9,9 @@ RUN apt -y update && \
     apt -y clean all && \
     apt -y autoclean  && \
     apt -y update && \
-    apt -y install --reinstall --install-recommends \
+    apt -y install \
+       --reinstall \
+         --install-recommends \
 	abootimg \
 	adb \
 	android-libsparse-dev \
