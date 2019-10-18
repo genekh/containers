@@ -1,4 +1,8 @@
 FROM ubuntu:bionic
+LABEL container.base 'ubuntu:bionic'
+LABEL container.tag net.genekh.contrainers.docker.cross.ub-build
+LABEL container.shell /bin/bash
+LABEL container.tweaks google-ndk,clear-apt-cache
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt -y update && \
     apt -y autoremove --purge && \
