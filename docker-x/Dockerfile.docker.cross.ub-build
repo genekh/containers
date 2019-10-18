@@ -1,9 +1,5 @@
 FROM ubuntu:bionic
-LABEL container.base 'ubuntu:bionic'
-LABEL container.tag net.genekh.contrainers.docker.cross.ub-build
-LABEL container.shell /bin/bash
-LABEL container.tweaks google-ndk,clear-apt-cache
-ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND noninteractive
 RUN apt -y update && \
     apt -y autoremove --purge && \
     apt -y clean all && \
@@ -71,7 +67,7 @@ RUN apt -y update && \
 	multipath-tools \
 	multipath-tools-boot \
 	nano \
-        ncdu \
+    ncdu \
 	net-tools \
 	network-manager \
 	ninja-build \
@@ -79,7 +75,7 @@ RUN apt -y update && \
 	openssh-server \
 	p7zip-full \
 	pkg-config \
-        pv \
+    pv \
 	python-dev \
 	python-serial \
 	python3-software-properties \
@@ -107,5 +103,7 @@ RUN apt -y update && \
 	zstd && \
     rm -rf /var/lib/apt/lists/* \
            /var/cache/apt/archives/*
-RUN apt -y install 'google-android-ndk-installer' && \
-    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
+ENV GNDKB='google-android-ndk-installer'
+RUN apt -y install "${GNDKB}" && \
+    rm -rf /var/lib/apt/lists/* \
+           /var/cache/apt/archives/*
