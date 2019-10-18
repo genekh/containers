@@ -5,7 +5,7 @@ ARG CLEAR_CACHE='rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*'
 ARG DEBIAN_FRONTEND=noninteractive
 
 LABEL container.base ubuntu:bionic
-LABEL container.tag net.genekh.contrainers.docker.cross.ub-build.auto.plus.ndk
+LABEL container.tag net.genekh.containers.docker-x.multiarc.gnubuild.androndk.u_bionic
 LABEL container.shell /bin/bash
 LABEL container.tweaks ndk-installer,clear-cache
 
