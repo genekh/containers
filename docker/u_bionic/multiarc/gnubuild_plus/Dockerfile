@@ -4,6 +4,10 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ARG CLEAR_CACHE='rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*'
 
+ENV LOCAL_BUILD='/usr/src'
+ARG asprsgit='https://github.com/anestisb/android-simg2img.git'
+ARG asprsdir='androsparse'
+
 #LABEL container.base genekh/containers:docker.u_bionic.base
 #LABEL container.tag  docker.u_bionic.multiarc.gnubuild_plus
 #LABEL container.shell /bin/bash
@@ -18,7 +22,7 @@ RUN dpkg --add-architecture i386               && \
                         --no-install-recommends   \
                 abootimg                          \
                 adb                               \
-                android-libsparse-d               \
+                android-libsparse-dev             \
                 android-sdk-libsparse-utils       \
                 apt-utils                         \
                 audacity                          \
@@ -99,4 +103,14 @@ RUN dpkg --add-architecture i386               && \
                 yasm                              \
                 zip                               \
                 zlib1g-dev                     && \
+    mkdir -p "${LOCAL_BUILD}"                  && \
+    cd "${LOCAL_BUILD}"                        && \
+    rm -rf "${asprsdir}"                       && \
+    git clone "${asprsgit}" "${asprsdir}"      && \
+    cd "${asprsdir}"                           && \
+    make clean                                 && \
+    make install                               && \
+    apt-get  -y autoremove --purge             && \
+    apt-get  -y autoclean                      && \
                 ${CLEAR_CACHE}
+                
