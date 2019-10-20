@@ -4,8 +4,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ARG CLEAR_CACHE='rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*'
 
-LABEL container.base genekh/containers:docker.u_bionic.base
-LABEL container.tag  docker.u_bionic.multiarc.gnubuild_plus
+#LABEL container.base genekh/containers:docker.u_bionic.base
+#LABEL container.tag  docker.u_bionic.multiarc.gnubuild_plus
 #LABEL container.shell /bin/bash
 #LABEL container.tweaks clear-cache
 
