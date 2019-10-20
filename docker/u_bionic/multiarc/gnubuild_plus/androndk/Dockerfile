@@ -15,7 +15,7 @@ RUN apt-get  -y clean all                      && \
     apt-get  -y install                           \
                         --fix-broken              \
                         --no-install-recommends   \
-               'google-android-ndk-installler' && \
+               'google-android-ndk-installer'  && \
     apt-get  -y autoremove --purge             && \
     apt-get  -y autoclean                      && \
     apt-get  -y update                         && \
