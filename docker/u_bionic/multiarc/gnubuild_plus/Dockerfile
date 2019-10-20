@@ -9,7 +9,7 @@ ARG CLEAR_CACHE='rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*'
 #LABEL container.shell /bin/bash
 #LABEL container.tweaks clear-cache
 
-RUN dpkg --add-architecture i386              && \
+RUN dpkg --add-architecture i386               && \
     apt-get  -y clean all                      && \
                 ${CLEAR_CACHE}                 && \
     apt-get  -y update                         && \
