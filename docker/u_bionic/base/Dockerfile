@@ -4,8 +4,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ARG CLEAR_CACHE='rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*'
 
-LABEL container.base ubuntu:bionic
-LABEL container.tag  docker.u_bionic.base
+#LABEL container.base ubuntu:bionic
+#LABEL container.tag  docker.u_bionic.base
 #LABEL container.shell /bin/bash
 #LABEL container.tweaks clear-cache
 
