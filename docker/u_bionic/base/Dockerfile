@@ -5,9 +5,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG CLEAR_CACHE='rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*'
 
 LABEL container.base ubuntu:bionic
-LABEL container.tag net.genekh.containers.docker.u_bionic.base
-LABEL container.shell /bin/bash
-LABEL container.tweaks clear-cache
+LABEL container.tag  docker.u_bionic.base
+#LABEL container.shell /bin/bash
+#LABEL container.tweaks clear-cache
 
 
 RUN apt-get  -y clean all                      && \
