@@ -52,6 +52,6 @@ RUN mkdir /tmp/root && cd /tmp/root && \
     wget -q "$BASE_URL/version.buildinfo" && \
     { for a in *.tar.xz; do tar xJf "$a" && rm "$a"; done; } && \
     { for a in *.tar.bz2; do tar xjf "$a" && rm "$a"; done; } && \
-    git clone "$GLMT300NV4" && \
+    git clone "{$GLMT300NV4_GIT}" && \
     echo '[[ -d /tmp/root ]] && cd /tmp/root && find . | cpio -o -H newc > /tmp/r && cd /root && cpio -id </tmp/r && rm -rf /tmp/root /tmp/r' >> /usr/bin/mvtmprt && chmod +x /usr/bin/mvtmprt
     
