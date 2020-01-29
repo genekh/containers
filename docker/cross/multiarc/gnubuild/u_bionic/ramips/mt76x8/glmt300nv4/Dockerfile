@@ -9,6 +9,7 @@ RUN apt -y update && \
                    nano \
                    curl \
                    wget \
+                   libarchive-dev \
                    build-essential \
                    libtool \
                    shtool \
