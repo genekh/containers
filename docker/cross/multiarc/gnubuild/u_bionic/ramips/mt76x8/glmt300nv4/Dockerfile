@@ -38,6 +38,7 @@ RUN apt -y update && \
     rm -rf /var/cache/apt/archives/* && \
     rm -rf /var/lib/apt/lists/*
 ARG BASE_URL='http://downloads.openwrt.org/snapshots/targets/ramips/mt76x8'
+ARG GLMT300NV4_GIT='https://github.com/ougang/mt300nv4-target.git'
 RUN mkdir /tmp/root && cd /tmp/root && \
     wget -q "$BASE_URL/config.buildinfo" && \
     wget -q "$BASE_URL/feeds.buildinfo" && \
@@ -51,6 +52,6 @@ RUN mkdir /tmp/root && cd /tmp/root && \
     wget -q "$BASE_URL/version.buildinfo" && \
     { for a in *.tar.xz; do tar xJf "$a" && rm "$a"; done; } && \
     { for a in *.tar.bz2; do tar xjf "$a" && rm "$a"; done; } && \
-    git clone 'https://github.com/ougang/mt300nv4-target.git' && \
+    git clone "$GLMT300NV4" && \
     echo '[[ -d /tmp/root ]] && cd /tmp/root && find . | cpio -o -H newc > /tmp/r && cd /root && cpio -id </tmp/r && rm -rf /tmp/root /tmp/r' >> /usr/bin/mvtmprt && chmod +x /usr/bin/mvtmprt
     
