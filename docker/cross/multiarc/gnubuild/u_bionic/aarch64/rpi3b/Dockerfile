@@ -34,6 +34,6 @@ RUN apt -y update && \
                    zstd \
                    bc \
                    bison \
-                   flex 
+                   flex \
                    gcc-aarch64-linux-gnu
 ENV CROSS_COMPILE=aarch64-linux-gnu-
