@@ -35,7 +35,6 @@ RUN apt -y update                  && \
 	adb \
 	android-libsparse-dev \
 	apt-utils \
-	audacity \
 	autoconf \
 	autoconf-archive \
 	automake \
