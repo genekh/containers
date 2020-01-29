@@ -1,5 +1,5 @@
 FROM ubuntu
-ENV DEBIAN_FRONTEND=noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt -y update && \
     apt -y install dialog && \
     apt -y upgrade && \
@@ -30,6 +30,7 @@ RUN apt -y update && \
                    qt5-default \
                    qt5-qmake \
                    ntfs-3g-dev \
+                   cpio \
                    zstd \
                    bc \
                    bison \
