@@ -38,7 +38,7 @@ RUN cd "$SRCBUILD" && \
     git clone --recursive "$GITR" "$GITL" && \
     cd "$GITL" && \
     ./bootstrap && \
-    ./configure 
+    ./configure \
         --enable-sysfsgpio \
         --enable-maintainer-mode \
         --disable-werror \
