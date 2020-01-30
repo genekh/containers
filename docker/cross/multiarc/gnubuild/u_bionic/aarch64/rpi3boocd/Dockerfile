@@ -16,6 +16,8 @@ RUN apt -y update && \
         shtool \
         autoconf \
         automake \
+        gcc-6 \
+        gcc \
         libudev-dev \
         libftdi-dev \
         libusb-1.0-0-dev && \
